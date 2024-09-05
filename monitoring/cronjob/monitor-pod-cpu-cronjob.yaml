@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pod-cpu-scraper
+spec:
+  jobTemplate:
+    metadata:
+      name: pod-cpu-scraper
+    spec:
+      template:
+        spec:
+          serviceAccount: metrics-scraper-sa
+          containers:
+          - image: samartinezcuello/pod-cpu-scraper:latest
+            name: pod-cpu-scraper
+            resources: {}
+          restartPolicy: OnFailure
+  schedule: '*/4 * * * *'

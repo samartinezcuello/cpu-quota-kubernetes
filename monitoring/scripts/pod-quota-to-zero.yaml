@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: pods-to-zero
+spec:
+  hard:
+    pods: "0"

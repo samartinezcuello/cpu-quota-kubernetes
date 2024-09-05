@@ -1,0 +1,22 @@
+FROM python:latest
+
+# Instalar el conector MySQL
+RUN pip install mysql-connector-python
+
+# Instalar kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && mv kubectl /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl
+
+# Crear el directorio /scripts
+RUN mkdir -p /scripts
+
+# Copiar script de monitoreo
+COPY monitor_pods_cpu.py /scripts/monitor_pods_cpu.py
+
+# Establecer el directorio de trabajo
+WORKDIR /scripts
+
+# Comando predeterminado
+CMD ["python", "/scripts/monitor_pods_cpu.py"]
+
